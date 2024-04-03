@@ -1,4 +1,86 @@
 # 지현수 202030331
+## 3월 28일 강의
+# Props 사용법  
+JSX에서는 key-value쌍으로 props를 구성합니다.  
+
+JSX를 사용하지 않는 경우 props의 전달 방법은 createElement()함수를 사용하는것입니다.
+
+
+
+```js
+React.createElement(
+    type,
+    [props],
+    [...children]
+)
+
+```
+# 컴포넌트 만들기
+1. 컴포넌트의 종류  
+- 리액트 초기 버전을 사용할 때는 클래스형 컴포넌트를 주로 사용했습니다.  
+- 이후 Hook이라는 개념이 나오면서 최근에는 함수형 컴포넌트를 주로 사용합니다.  
+- 예전에 작성된 코드나 문서들이 클래스형 컴포넌트를 사용하고 있기 때문에,  
+- 클래스형 컴포넌트와 컴포넌트의 생명주기에 관해서도 공부해 두어야 합니다.  
+
+2. 함수형 컴포넌트  
+- Welcome컴포넌트는 props를 받아, 받은 props중 name키의 값을 "안녕."뒤에 넣어 반환합니다
+
+
+```js
+funtion Welcome(props){
+    return <h1>안녕, {props.name} <h1>;
+}
+
+conse element = <Welcome name="인제" />;
+ReactDOM.render(
+    element,
+    document.getElementById('root')
+);
+
+```
+
+4. 컴포넌트 이름 짓기
+- 이름은 항상 대문자로 시작합니다.  
+- 왜냐하면 리액트는 소문자로 시작하는 컴포넌트를 DOM태그로 인식하기 때문입니다. html tag.  
+- 컴포넌트 파일 이름과 컴포넌트 이름은 같게 합니다.
+
+# 컴포넌트 합성  
+- 컴포넌트 합성은 여러 개의 컴포넌트를 합쳐서 하나의 컴포넌트를 만드는 것입니다.  
+- 리액트에서는 컴포넌트 안에 또 다른 컴포넌트를 사용할 수 있기 때문에, 복잡한 화면을 여러개의 컴포넌트로 나누어 구현할 수 있습니다.
+
+# 컴포넌트 추출  
+- 복잡한 컴포넌트를 쪼개서 여러 개의 컴포넌트로 나눌 수도 있습니다.  
+- 큰 컴포넌트에서 일부를 추출해서 새로운 컴포넌트를 만드는 것입니다.  
+- 두 번째로 사용자 정보 부분을 추출합니다.  
+- 컴포넌트 이름은 UserInfo로 합니다. React 컴포넌트 이름은 Camel notaion을 사용합니다.  
+- UserInfo 안에 Avatar 컴포넌트를 넣어서 완성시킵니다.  
+
+```js
+function UserInfo(props){
+    return (
+        <div className="user-info">
+            <Avatar user={props.user}/>
+            <div className="user-info-name">
+                {props.user.name}
+            </div>  
+        </div>
+    );    
+}
+```
+# State
+1. state란?  
+- State는 리액트 컴포넌트의 상태를 의미합니다.  
+- 상태의 의미는 정상인지 비정상인지가 아니라 컴포넌트의 데이터를 의미합니다.  
+- 정확히는 컴포넌트의 변경가능한 데이터를 의미합니다.  
+- State가 변하면 다시 렌더링이 되기 때문에 렌더링과 관련된 값만 state에 포함시켜야 합니다.  
+
+2. state의 특징  
+- 리액트만의 특별한 형태가 아닌 단지 자바스크립트 객체일 뿐입니다.  
+- 예의 LikeButton은 class 컴포넌트입니다.  
+- constructor는 생성자이고 그 안에 있는 this.state가 현 컴포넌트의 state입니다.  
+
+*함수형 에서는 useState()라는 함수를 사용합니다.
+
 ## 3월 27일 강의
 # 컴포넌트에 대해 알아보기  
 - 리액트는 컴포넌트 기반의 구조를 갖습니다.
