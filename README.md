@@ -1,4 +1,107 @@
 # 지현수 202030331
+## 5월 8일 강의 내용
+# 이벤트 처리하기
+리액트에서 이벤트 이름은 **카멜 케이스** 사용  
+ex) ```onClick``` *(javascript와 다르니 주의)*  
+
+이벤트 핸들러 *(이벤트 리스너)* 는 함수 실행 형태가 아니라 함수 그 자체를 전달
+```jsx
+<button onClick={handleClick} />
+```
+
+# 이벤트 핸들러 추가하기
+1. 함수안에 함수로 정의하기
+```jsx
+function handleClick(){
+    // ... To do
+}
+```
+
+2. arrow function을 사용해서 정의
+```jsx
+const handleClick = () => {
+    // ... To do
+}
+```
+
+# arguments 전달하기
+- 함수를 정의할 때는 파라미터 혹은 매개변수,  
+  함수를 사룡할때는 아귀먼트 혹은 인수라고 부릅니다.
+- 이벤트 핸들러에 매개변수를 전달해야 하는 경우도 많습니다.  
+
+
+
+### 리엑트 이벤트 객체 전달받기
+```jsx
+<button onClick={(event) => handleDelete("흠흐밍", event)} />
+```
+
+### 조건부 렌더링
+조건에 따라서 return 하는(렌더링되는) 컴포넌트가 달라지는 것
+```jsx
+function Greeting(props){
+    const isLogin = pros.isLogin
+
+    if(isLogin) {
+        return <UserGreeting />
+    }
+    return <LoginButton />
+}
+```
+
+
+### 엘리먼트 변수
+렌더링해야 될 컴포넌트를 변수처럼 사용하는 방법
+```jsx
+let button;
+if(isLogin) button = <button onClick={handleLogoutClick}>로그아웃</button>
+else button = <button onClick={handleLoginClick}>로그인</button>
+
+return (
+    <div>
+        <div>코드...</div>
+        {button}
+    </div>
+)
+```
+
+### 인라인 조건
+1. 인라인 if  
+  - if문을 사용하지 않고 논리 연산자(&&)를 사용  
+  - &&는 and연산자로 모든 조건이 참일때만 참이 됩니다.  
+  - 첫 번 조건이 거짓이면 두번째 조건은 판단할 필요가 없습니다.  
+  ```jsx
+  {
+    unreadMessages.length > 0 &&
+    <h2>현재 {unreadMessages.length}개의 읽지 않은 메세지가 있습니다
+  }
+  ```
+  앞에게 false면 뒤에것을 검사하지 않는 특성을 사용 *(단축평가)*
+
+2. 인라인 if-else  
+  - 삼항 연산자를 사용합니다.  
+  - 문자열이나 엘리먼트를 넣어서 사용할 수도 있습니다.
+  ```jsx
+  <div>
+    { isLogin ? <Logoutbutton /> : <LoginButton /> }
+  </div>
+  ```
+
+
+### 컴포넌트 null 리턴(렌더링 막기)  
+- 컴포넌트를 렌더링하고 싶지 않을때는 null 리턴
+```jsx
+    function WaringBanner(props){
+        if(!props.warning){
+            return null;
+        }
+
+        return(
+            <div>경고!</div>
+        );
+    }
+```
+
 ## 5월 1일 강의
 # 이벤트 처리
 * DOM에서 클릭 이벤트를 처리하는 예제 코드
