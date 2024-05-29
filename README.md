@@ -1,4 +1,76 @@
 # 지현수 202030331
+## 5월 29일 강의내용  
+# select태그  
+- 드롭다운(drop-down) 목록을 보여주기 위한 HTML 태그  
+- 여러 가지 옵션 중에서 하나를 선택할 수 있는 기능을 제공
+- HTML 에서는 아래 코드와 같이 태그를 태그가 감싸는 형태로 사용
+- 현재 선택된 옵션의 경우 `selected`라는 `attribute`를 가지고 있음  
+```jsx
+<select>
+    <option value="apple">사과</option>
+    <option value="banana">바나나</option>
+    <option selected value="grape">포도</option>
+    <option value="watermelon">수박</option>
+</select>
+```  
+
+# Input Null Value
+- 앞에서 배운 것 처럼 제어 컴포넌트에 value prop을 정해진 값으로 넣으면 코드를 수정하지 않는 한 입력값을 바꿀 수 없다.  
+- 만약 value prop은 넣되 자유롭게 입력할 수 있게 만들고 싶다면 앞에 undefined 또는 null을 넣어주면 된다.  
+- 아래 코드를 예로 들면, 처음에는 input 값이 hi로 정해져있어서 값을 바꿀 수 없는 입력 불가 상태였다가 timer에 의해 1초 뒤에 value가 null인 input 태그가 렌더링되면서 입력 가능한 상태로 바뀐다.
+
+```jsx
+    ReactDOM.render(<input value="hi" />, rootNode);
+
+    setTime(function() {
+        ReactDOM.render(<input value={null} />, rootNode);
+    }, 1000);
+```
+
+- 이러한 방법을 잘 활용하면 value prop을 넣으면서 동시에 사용자가 자유롭게 입력할 수 있게 만들 수 있다.
+
+## 실습코드
+```jsx
+    import React, { useState } from "react";
+
+function SignUp(props) {
+    const [name, setName] = useState("");
+    const [gender, setGender] = useState("남자");
+
+    const handleChangeName = (event) => {
+        setName(event.target.value);
+    };
+
+    const handleChangeGender = (event) => {
+        setGender(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        alert(`이름: ${name}, 성별: ${gender}`);
+        event.preventDefault();
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <label>
+                이름:
+                <input type="text" value={name} onChange={handleChangeName} />
+            </label>
+            <br />
+            <label>
+                성별:
+                <select value={gender} onChange={handleChangeGender}>
+                    <option value="남자">남자</option>
+                    <option value="여자">여자</option>
+                </select>
+            </label>
+            <button type="submit">제출</button>
+        </form>
+    );
+}
+
+export default SignUp;
+```
 ## 5월 22일 강의내용  
 # 리스트와 키  
 - 리스트는 자바스크립트의 변수나 객체를 하나의 변수로 묶어 놓은 배열과 같은 것입니다.  
@@ -27,6 +99,23 @@ const listItems = numbers.map((number) =>
 # 리액트 form 태크
 제어태그
 
+# 기본적인 리스트 컴포넌트
+- NumberList 컴포넌트는 props로 숫자가 들어있는 배열인 numbers를 받아서 이를 목록으로 출력한다.
+- 하지만 현재 각 아이템에 아직 키가 없기 때문에 콘솔창에는 리스트 아이템에는 무조건 키가 있어야 한다는 경고 문구가 출력된다.  
+
+# 키값으로 index 사용하기
+- map() 함수에서 두 번째 파라미터로 제공해주는 인덱스 값을 키값으로 사용  
+- 인덱스도 고유한 값이기 때문에 키값으로 사용해도 되지만 배열에서 아이템의 순서가 바뀔수 있는 경우에는 사용하면 안됨  
+- 리액트에서는 키를 명시적으로 넣어주지 않으면 기본적으로 인덱스 값을 키값으로 사용  
+
+```jsx
+const todoItems = todos.map((todo, index) => {
+  	// 아이템의 고유한 ID 가 없을 경우에만 사용
+    <li key={index}>
+        {todo.text}
+    </li>
+});
+```
 
 ## 5월 8일 강의 내용
 # 이벤트 처리하기
