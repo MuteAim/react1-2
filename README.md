@@ -1,4 +1,72 @@
 # 지현수 202030331
+## 06월 05일 강의 내용
+- shared state는 state의 공유를 의미합니다.
+- 같은 부모 컴포넌트의 state를 자식 컴포넌트가 공유해서 사용하는 것입니다.
+- 입력 컴포넌트 추출하기
+```jsx
+import { useState } from "react";
+import BoilingVerdict from "./BoilingVerdict";
+
+export default function Calculator() {
+    const [temperature, setTemperrature] = useState('')
+    const handleChange = (e) => {
+        setTemperrature(e.target.value)
+    }
+
+    return(
+        <fieldset>
+            <legend>섭씨 온도를 입력하세요</legend>
+            <input type="number" value={temperature}
+            onChange={handleChange} />
+            <BoilingVerdict celsius={parseFloat(temperature)} />
+        </fieldset>
+    )
+}
+```
+- 이렇게 하는 이유는 용도에 따라 입력을 받을 수 있도록 해서 재사용이 가능하게 하기 위해서입니다.
+
+### shared State 적용하기
+- 다음은 하위 컴포넌트의 state를 부모 컴포넌트로 올려서 shared state를 적용합니다.
+이것을 Lifting State Up (State 끌어 올리기)라고 합니다.
+- 이를 위해 먼저 TemperatureInput 컴포넌트에서 온도 값을 가져오는 부분을 다음과 같이 수정합니다.
+- 이렇게 수정하면 온도를 state에서 가져오지 않고 props를 통해 가져옵니다.
+``` jsx
+export default function TemperatureInput(props) {
+    //const [temperature, setTemperature] = useState('')
+    const handleChange = (e) => {
+        //setTemperature(e.target.value)
+        props.onTemperatureChange(e.target.value)
+    }
+        return(
+        <fieldset>
+            <legend>섭씨 온도를 입력하세요(단위: {scaleName[props.scale]})</legend>
+            {/* <input type="number" value={temperature}
+            onChange={handleChange} /> */}
+            <input type="number" value={props.temperature}
+            onChange={handleChange} />
+        </fieldset>
+    )
+}
+```
+- 또 한가지 컴포넌트의 state를 사용하지 않기 때문에
+입력 값이 변경되었을 때 상위 컴포넌트로 변경된 값을 전달해 주어야 합니다.
+ 이를 위해 handler함수를 다음과 같이 수정해줍니다.
+- 최종 코드는 다음과 같이 state는 제거되고, 상위 컴포넌트에서 전달받은 값만 사용합니다.
+- 상위 컴포넌트인 Calculator에서 온도와 단위를 state로 갖고
+- 두개의 하위 컴포넌트는 각각 섭씨, 화씨로 변환된 온도와 단위, 그리고 온도를 업데이트하기 위한 함수를 props로 갖고 있습니다
+- 이렇게 모든 컴포넌트가 state를 갖지 않고, 상위 컴포넌트만 
+
+### 합성에 대해 알아보기
+- 합성(Compostion)은 여러 개의 컴포넌트를 합쳐서 새로운 컴포넌트를 만드는 것입니다.
+- 조합 방법에 따라 합서의 사용 기법은 다음과 같이 나눌 수 있습니다.
+1. Containment(담다, 포함하다, 격리하다)
+    - 특정 컴포넌트가 하위 컴포넌트를 포함하는 형태의 합성 방법입니다.
+    - 컴포넌트에 따라서는 어떤 자식 엘리먼트가 들어올지 미리 예상할 수 없는 경우가 있습니다.
+    - 범용적인 박스 역할을 하는 Sidebar 혹은 Dialog와 같은 컴포넌트에서 특히 자주 볼 수 있습니다.
+    - 이런 컴포넌트에서는 children prop을 사용하여 자식 엘리먼트를 출력에 그대로 전달하는 것이 좋습니다.
+    - 이때 children prop은 컴포넌트의 props에 기본적으로 들어있는 children속성을 사용합니다. 
+    - 리엑트에서는 props, children을 통해 하위 컴포넌트를 하나로 모아서 제공해줍니다.
+    - 만일 여러 개의 chidren 집합이 필요할 경우에도 별도로 props를 정의해서 각각 원하는 컴포넌트를 넣어줍니다.
 ## 5월 29일 강의내용  
 # select태그  
 - 드롭다운(drop-down) 목록을 보여주기 위한 HTML 태그  
