@@ -1,14 +1,14 @@
 # 지현수 202030331
 ## 6월 12일 강의
 
-# 1 .CSS란 ?
+# 1.CSS란 ?
 
 - CSS (Cascading style sheets)
 - cascading ? 계단식 이란 뜻으로 한 엘리먼트에 여러 스타일이 적용될 경우 스타일간의 충돌을 막기 위해 계단식으로 스타일을 적용시키는 규칙을 갖고 있음
 - 하나의 스타일이 여러 개의 엘리먼트에 적용될 수 있고, 하나의 엘리먼트에도 여러 개의 스타일이 적용될 수 있음
 - 엘리먼트에 스타일이 적용되는 규칙을 selector(선택자)라고 함. css는 이 선택자와 스타일로 이루어져 있음
 
-# 2. 레이아웃과 관련된 속성
+# 2.레이아웃과 관련된 속성
 
 - 화면에 엘리먼트를 어떻게 배치할 것인지 정의
 - _가장 중요한 속성 ->`display`_
@@ -24,7 +24,7 @@
 - display: none - 엘리먼트의 영역이 보이지 않음
 - visiblity:hidden - 차지하는 영역은 보임
 
-# 3. styled-components
+# 3.styled-components
 
 - css 문법을 그대로 사용하면서 결과물을 스타일링된 컴포넌트 형태로 만들어 주는 오픈소스 라이브러리
 - 컴포넌트 개녑을 사용하고 있어 리액트 개발에 많이 사용됨
@@ -47,6 +47,21 @@ const Button = styled.button`
   border: 1px solid black;
 `;
 ```
+# props 전달
+```jsx
+<Button>Normal</Button>
+<Button dark>Dark</Button> //props.dark로 전달
+```
+
+# 기존 styled-components 가져오기
+```jsx
+//기존 Button의 속성을 가져옴
+const RoundButton = styled(Button)`
+    border-radius: 16px;
+`
+```
+
+
 ## 06월 11일 강의 내용
 # Specialization (특수화, 전문화)
 - 웰컴다이얼로그는 다이얼로그의 특별한 케이스입니다.
